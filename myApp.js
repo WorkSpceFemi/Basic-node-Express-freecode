@@ -13,6 +13,19 @@ app.use(function(req,res,next){
   next();
 });
 
+app.get(
+  "/now",
+  (req, res, next) => {
+    req.time = new Date().toString();
+    next();
+  },
+  (req, res) => {
+    res.send({
+      time: req.time
+    });
+  }
+);
+
 app.get("/json",function(req,res){
   if(process.env.MESSAGE_STYLE==="uppercase"){
     res.json({"message":"HELLO JSON"});
