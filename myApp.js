@@ -5,14 +5,14 @@ var bodyParser=require('body-parser');
 var app = express();
 
 //console.log("Hello World");
-app.use(bodyParser());
+//app.use(bodyParser());
 app.use(function(req,res,next){
   console.log(req.method+ " " +req.path+ " - " +req.ip);
   next();
 });
 
 app.use(bodyParser.urlencoded({ 
-  extended: true 
+  extended: false 
 }));
 app.use(bodyParser.json());
 
