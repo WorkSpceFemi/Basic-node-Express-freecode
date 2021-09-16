@@ -58,6 +58,14 @@ app.get("/name", (req, res) => {
   });
 });
 
+app.post("/name",function(req,res){
+  var string = req.body.first + " " + req.body.last;
+  res.json({ name: string });
+});
+
+
+
+
 app.get("/json",function(req,res){
   if(process.env.MESSAGE_STYLE==="uppercase"){
     res.json({"message":"HELLO JSON"});
