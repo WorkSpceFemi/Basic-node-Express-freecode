@@ -1,17 +1,33 @@
 var express = require('express');
+
+var bodyParser=require('body-parser');
+
 var app = express();
 
-console.log("Hello World");
+//console.log("Hello World");
+app.use(bodyParser());
+app.use(function(req,res,next){
+  console.log(req.method+ " " +req.path+ " - " +req.ip);
+  next();
+});
+
+app.use(bodyParser.urlencoded({ 
+  extended: true 
+}));
+app.use(bodyParser.json());
+
+/*app.use(function(req,res,next){
+  bodyParser.urlencoded({extended: false});
+  console.log(bodyParser);
+  next();
+});*/
 
 app.get("/", function(req, res) {
     res.sendFile(__dirname+"/views/index.html");
   });
 
 app.use("/public",express.static(__dirname+"/public/"));
-app.use(function(req,res,next){
-  console.log(req.method+ " " +req.path+ " - " +req.ip);
-  next();
-});
+
 
 app.get(
   "/now",
@@ -25,6 +41,8 @@ app.get(
     });
   }
 );
+
+
 app.get("/:word/echo", (req, res) => {
   const { word } = req.params;
   res.json({
@@ -47,6 +65,8 @@ app.get("/json",function(req,res){
     res.json({"message":"Hello json"});
   }
 });
+
+
 
 
 
